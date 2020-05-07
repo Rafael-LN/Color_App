@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/ComponentsLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/RedLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.33"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/RedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_red_dark"
+                android:text="Red"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/RedContentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/RedSub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="-" />
+
+                <Button
+                    android:id="@+id/RedAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/RedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/GreenLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.33"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/GreenText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_green_dark"
+                android:text="Green"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/GreenContentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/GreenSub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="-" />
+
+                <Button
+                    android:id="@+id/GreenAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/GreenValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/BlueLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:layout_weight="0.33"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/BlueText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:text="Blue"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light" />
+
+            <LinearLayout
+                android:id="@+id/BlueContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/BlueSub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="-" />
+
+                <Button
+                    android:id="@+id/BlueAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.25"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/BlueValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ResultContainer"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/ResultValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#646464"
+            android:gravity="center"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>
