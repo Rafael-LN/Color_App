@@ -1,18 +1,19 @@
 package isel.dam.tutorial.colorapp
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var current_redValue = R.integer.default_value
-    private var current_greenValue = R.integer.default_value
-    private var current_blueValue = R.integer.default_value
-
-    private var startTime: Long = 0
+    private var current_redValue : Int = 0
+    private var current_greenValue : Int = 0
+    private var current_blueValue : Int = 0
+    private var intervalTimer : Long = 0
+    private var counterTime : Long = 0
 
     // Red Component
     private val redAdd: Button
@@ -42,6 +43,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        current_redValue = resources.getInteger(R.integer.default_value)
+        current_greenValue = resources.getInteger(R.integer.default_value)
+        current_blueValue = resources.getInteger(R.integer.default_value)
+
+        counterTime = resources.getInteger(R.integer.timer).toLong()
+        intervalTimer = resources.getInteger(R.integer.intervalTimer).toLong()
+
         redValue = findViewById(R.id.RedValue)
         redValue.text = current_redValue.toString()
 
@@ -64,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             setResultText()
         }
         
-        redAdd.setOnTouchListener()
+        //redAdd.setOnTouchListener()
 
         redSub.setOnClickListener {
             setRedBackground(if (current_redValue - 1 < 0) current_redValue else --current_redValue)
@@ -79,9 +87,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         greenSub.setOnClickListener {
-            setGreenBackgroud(if (current_greenValue - 1 < 0) current_greenValue else --current_greenValue)
-            greenValue.text = current_greenValue.toString()
-            setResultText()
+            var counter = object : CountDownTimer(counterTime, intervalTimer) {
+                override fun onTick(millisUntilFinished: Long) {}
+                override fun onFinish() {
+                    start()
+                    setGreenBackgroud(if (current_greenValue - 1 < 0) current_greenValue else --current_greenValue)
+                    greenValue.text = current_greenValue.toString()
+                    setResultText()
+
+                }
+            }
+            counter.start()
         }
 
         blueAdd.setOnClickListener {

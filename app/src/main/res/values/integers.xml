@@ -1,3 +1,5 @@
 <resources>
     <integer name="default_value">100</integer>
+    <integer name="timer">3000</integer>
+    <integer name="intervalTimer">7000</integer>
 </resources>
