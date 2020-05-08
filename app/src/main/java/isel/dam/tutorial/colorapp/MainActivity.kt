@@ -107,9 +107,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         blueSub.setOnClickListener {
-            setBlueBackground(if (current_blueValue - 1 < 0) current_blueValue else --current_blueValue)
-            blueValue.text = current_blueValue.toString()
-            setResultText()
+            var counter = object : RepeatableTimer(counterTime, intervalTimer) {
+                override fun onTick(millisUntilFinished: Long) {}
+                override fun onFinish() {
+                    start()
+                    setBlueBackground(if (current_blueValue - 1 < 0) current_blueValue else --current_blueValue)
+                    blueValue.text = current_blueValue.toString()
+                    setResultText()
+
+                }
+            }
+            counter.start()
         }
     }
 
