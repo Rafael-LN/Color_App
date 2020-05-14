@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Color App</string>
+    <string name="result_text">%1$d, %2$d, %3$d</string>
+    <string name="redText">Red</string>
+    <string name="blueText">Blue</string>
+    <string name="dec">-</string>
+    <string name="inc">+</string>
+    <string name="greenText">Green</string>
 </resources>

@@ -1,31 +1,24 @@
 package isel.dam.tutorial.colorapp
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
 import android.os.SystemClock
 
-open abstract class RepeatableTimer(millisInFuture: Long, countDownInterval: Long) {
+abstract class RepeatableTimer(initialDelay: Long, repeatableDelay: Long) {
 
-    private val initialDelay = 0
-    private val repeatableDelay: Long = 0
     private val MSG = 1
     private var mCancelled = false
-    private var mMillisInFuture: Long = 0
-    private var mStopTimeInFuture: Long = 0
-    private var mCountdownInterval: Long = 0
+    private var initialDelay: Long = 0
+    private var repeatableDelay: Long = 0
+    private var currentTime: Long = 0
 
-    open fun RepeatableTimer(
-        millisInFuture: Long,
-        countDownInterval: Long
-    ) {
-        mMillisInFuture = millisInFuture
-        mCountdownInterval = countDownInterval
+    init {
+        this.initialDelay = initialDelay
+        this.repeatableDelay = repeatableDelay
     }
 
-
-    abstract fun onTick(millisUntilFinished: Long)
-    abstract fun onFinish()
-
+    abstract fun onTick()
 
     @Synchronized
     fun cancel() {
@@ -36,50 +29,20 @@ open abstract class RepeatableTimer(millisInFuture: Long, countDownInterval: Lon
     @Synchronized
     fun start(): RepeatableTimer? {
         mCancelled = false
-        if (mMillisInFuture <= 0) {
-            onFinish()
-            return this
-        }
-        mStopTimeInFuture = SystemClock.elapsedRealtime() + mMillisInFuture
+        currentTime = SystemClock.elapsedRealtime()
         handler.sendMessage(handler.obtainMessage(MSG))
         return this
     }
 
-    private val handler: Handler = object : Handler() {
+    private val handler: Handler = @SuppressLint("HandlerLeak")
+    object : Handler() {
         override fun handleMessage(msg: Message) {
-            synchronized(this@RepeatableTimer) {
-                if (mCancelled) {
-                    return
-                }
-                val millisLeft =
-                    mStopTimeInFuture - SystemClock.elapsedRealtime()
-                if (millisLeft <= 0) {
-                    onFinish()
-                } else {
-                    val lastTickStart = SystemClock.elapsedRealtime()
-                    onTick(millisLeft)
+            if (mCancelled) return
 
-                    // take into account user's onTick taking time to execute
-                    val lastTickDuration =
-                        SystemClock.elapsedRealtime() - lastTickStart
-                    var delay: Long
-                    if (millisLeft < mCountdownInterval) {
-                        // just delay until done
-                        delay = millisLeft - lastTickDuration
+            if (SystemClock.elapsedRealtime() > currentTime + initialDelay) onTick()
 
-                        // special case: user's onTick took more than interval to
-                        // complete, trigger onFinish without delay
-                        if (delay < 0) delay = 0
-                    } else {
-                        delay = mCountdownInterval - lastTickDuration
+            sendEmptyMessageDelayed(MSG, repeatableDelay)
 
-                        // special case: user's onTick took more than interval to
-                        // complete, skip to next interval
-                        while (delay < 0) delay += mCountdownInterval
-                    }
-                    sendMessageDelayed(obtainMessage(MSG), delay)
-                }
-            }
         }
     }
 }
